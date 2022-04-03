@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    @include('guest.layout.test')
-    @stack('test')
+    @include('user.layout.head')
+    @stack('head')
 </head>
 
 <body>
 <!-- HEADER  -->
-@include('guest.layout.header2')
+@include('user.layout.header')
 <!-- Banner  -->
 <main>
     <div class="main">
@@ -20,7 +20,7 @@
 </main>
 
 <!-- FOOTER -->
-@include('guest.layout.footer')
+@include('user.layout.footer')
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -33,12 +33,10 @@
 <script src="{{asset('mystore/js/lightgallery-all.min.js')}}"></script>
 <script src="{{asset('mystore/js/lightslider.js')}}"></script>
 <script src="{{asset('mystore/js/prettify.js')}}"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>--}}
 
 @stack('footer')
 </body>
 
 </html>
+

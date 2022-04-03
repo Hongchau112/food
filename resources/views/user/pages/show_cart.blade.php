@@ -1,4 +1,4 @@
-@extends('guest.pages.layout', [
+@extends('user.pages.layout', [
     'title' => ($title ?? 'Chi tiết giỏ hàng')
 ])
 
@@ -45,17 +45,17 @@
                                         <td class="" id="priceshow{{$food['price']}}">{{number_format($food['price']/$food['quanty'])}}</td>
                                         {{--                                    <td class="p-price first-row" id="priceshow{{$product['price_id']}}">{{$product['price']}}</td>--}}
                                         <input type="hidden" id="price" value="{{$food['price']}}">
-{{--                                        <input type="hidden" class="idPrice" value=" {{$food['price_id'] }} ">--}}
+                                        {{--                                        <input type="hidden" class="idPrice" value=" {{$food['price_id'] }} ">--}}
 
                                         <td class="quanty" id="quanty_show">{{$food['foods_sold']}}</td>
 
                                         <td class="qua-col first-row">
                                             <div class="size">
                                                 <button class="delete-item" onclick="">Cập nhật món</button>
-{{--                                                    <span class="minus-quanty" onclick="deleteNumberItem('{{$food['price'] }}')">-</span>--}}
-{{--                                                    <input type="text" id="quantyFood" value="{{$food['quanty']}}">--}}
-{{--                                                    <span class="plus-quanty" onclick="">+</span>--}}
-{{--                                                </div>--}}
+                                                {{--                                                    <span class="minus-quanty" onclick="deleteNumberItem('{{$food['price'] }}')">-</span>--}}
+                                                {{--                                                    <input type="text" id="quantyFood" value="{{$food['quanty']}}">--}}
+                                                {{--                                                    <span class="plus-quanty" onclick="">+</span>--}}
+                                                {{--                                                </div>--}}
                                             </div>
                                         </td>
                                         <td class="close-td first-row"><button class="delete-item" onclick="deleteCart('{{$food['food']->id}}')">Xóa</button></td>
@@ -113,29 +113,30 @@
     </script>
 
 
-{{--    <script>--}}
-{{--        function addNumberItem(id){--}}
-{{--            var priceItems=$('#price'+id).val();--}}
-{{--            var number=$('#quantyProduct'+id).val();--}}
-{{--            var price= priceItems/number;--}}
-{{--            number++;--}}
-{{--            $('#quantyProduct'+id).attr('value',number);--}}
-{{--            $('#price'+id).attr('value',price*number);--}}
-{{--            $('#priceshow'+id).html(price);--}}
-{{--            $.ajax({--}}
-{{--                url: "/guest/update_cart/" +id,--}}
-{{--                type:"GET",--}}
-{{--                data:  {number:number,price:price},--}}
-{{--                success: function(result){--}}
-{{--                    $('#shopping-cart').empty();--}}
-{{--                    $('#shopping-cart').html(result);--}}
-{{--                    window.location.reload(true);--}}
-{{--                    $('#cart').text($('#total-quanty-cart').val())--}}
-{{--                }--}}
-{{--            });--}}
-{{--        };--}}
-{{--    </script>--}}
+    {{--    <script>--}}
+    {{--        function addNumberItem(id){--}}
+    {{--            var priceItems=$('#price'+id).val();--}}
+    {{--            var number=$('#quantyProduct'+id).val();--}}
+    {{--            var price= priceItems/number;--}}
+    {{--            number++;--}}
+    {{--            $('#quantyProduct'+id).attr('value',number);--}}
+    {{--            $('#price'+id).attr('value',price*number);--}}
+    {{--            $('#priceshow'+id).html(price);--}}
+    {{--            $.ajax({--}}
+    {{--                url: "/guest/update_cart/" +id,--}}
+    {{--                type:"GET",--}}
+    {{--                data:  {number:number,price:price},--}}
+    {{--                success: function(result){--}}
+    {{--                    $('#shopping-cart').empty();--}}
+    {{--                    $('#shopping-cart').html(result);--}}
+    {{--                    window.location.reload(true);--}}
+    {{--                    $('#cart').text($('#total-quanty-cart').val())--}}
+    {{--                }--}}
+    {{--            });--}}
+    {{--        };--}}
+    {{--    </script>--}}
 
 
 @endpush
+
 

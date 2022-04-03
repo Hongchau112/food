@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<p>Chào anh/chị, <br><br>Chân thành cảm ơn anh/chị đã đặt hàng tại MYS Store. <br>Chúng tôi sẽ xác nhận đơn hàng trong thời gian sớm nhất, chúc anh chị nhiều sức khỏe.</p>
+<p>Chào anh/chị, <br><br>Chân thành cảm ơn anh/chị đã đặt thức ăn tại AnNgonMieng. <br>Chúng tôi sẽ liên hệ với anh chị để nhận đơn hàng trong vòng 30 phút, chúc anh chị có những bữa ăn ngon miệng. Sau đây là chi tiết đơn hàng, anh chị vui lòng kiểm tra lại.</p>
 <table border="1px">
     <tr>
         <td class="th">
@@ -80,7 +80,7 @@
 
 <h5>Ghi chú:</h5>
 <p id="p">
-    Nếu Anh/chị có bất kỳ thắc mắc, xin liên hệ với chúng tôi tại hongchau2000st@gmail.com, hoặc qua facebook.com/chaule.011
+    Nếu Anh/chị có bất kỳ thắc mắc, xin liên hệ với chúng tôi qua số điện thoại 0965149361.
     <br>
 <p id="footer">Trân trọng,</p>
 

@@ -1,4 +1,4 @@
-@extends('guest.pages.layout', [
+@extends('user.pages.layout', [
 'title' => ( $title ?? 'Trang chủ' )
 ])
 
@@ -74,5 +74,6 @@
 
     </section>
 @endsection
+
 
 

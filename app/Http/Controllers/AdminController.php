@@ -20,7 +20,13 @@ class AdminController extends Controller
                 return view('admin.users.login');
             }
             else{
-                return redirect()->route('admin.index');
+                if($user->has_role('user'))
+                {
+                    return redirect()->route('user.all_foods');
+                }
+                else{
+                    return redirect()->route('admin.index');
+                }
             }
         }else{
             return view('admin.users.login');
@@ -101,7 +107,7 @@ class AdminController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect('admin/login');
+        return redirect()->route('admin.login_auth');
     }
 
     public function edit_password($id)

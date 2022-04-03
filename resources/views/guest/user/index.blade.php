@@ -5,6 +5,10 @@
 @section('content')
     <!--Hien thi tat ca san pham -->
     <section class="carouselBanner">
+        <div class="user-info d-none d-md-block">
+            <div class="user-status">Admin</div>
+            <div class="user-name dropdown-indicator">{{$user->name}}</div>
+        </div>
         {{--        <div id="carouselCosmetics" class="carousel slide" data-ride="carousel">--}}
         {{--            <ol class="carousel-indicators">--}}
         {{--                <li data-target="#carouselCosmetics" data-slide-to="0" class="active"></li>--}}
@@ -74,5 +78,6 @@
 
     </section>
 @endsection
+
 
 

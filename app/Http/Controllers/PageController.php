@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Food;
 use App\Models\FoodCategory;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
@@ -17,7 +19,15 @@ class PageController extends Controller
         $images = Image::all();
         $food_categories = FoodCategory::all();
         $foods = Food::paginate(8);
-        return view('guest.pages.index', compact('foods', 'food_categories' , 'images'));
+        $user = Auth::guard('admin')->user();
+        if ($user)
+        {
+            return view('user.pages.index', compact('user','foods', 'food_categories' , 'images'));
+        }
+        else{
+            return view('guest.pages.index', compact('foods', 'food_categories' , 'images'));
+        }
+
     }
 
     public function show()
@@ -25,7 +35,16 @@ class PageController extends Controller
         $food_categories = FoodCategory::all();
         $foods=Food::all();
         $images = Image::all();
-        return view('guest.pages.show', compact('foods', 'food_categories', 'images'));
+        $user = Auth::guard('admin')->user();
+        if ($user)
+        {
+            return view('user.pages.show', compact('user','foods', 'food_categories' , 'images'));
+        }
+        else{
+            return view('guest.pages.show', compact('foods', 'food_categories', 'images'));
+        }
+
+
     }
 
     public function detail($id)
@@ -33,7 +52,15 @@ class PageController extends Controller
         $food = Food::find($id);
         $food_categories = FoodCategory::all();
         $images = Image::where('food_id', $id)->get();
-        return view('guest.pages.detail', compact('food','food_categories', 'images'));
+        $user = Auth::guard('admin')->user();
+        if ($user)
+        {
+            return view('user.pages.detail', compact('user','food', 'food_categories' , 'images'));
+        }
+        else{
+            return view('guest.pages.detail', compact('food','food_categories', 'images'));
+        }
+
     }
 
     public function show_category($id)
@@ -52,8 +79,17 @@ class PageController extends Controller
         $category = FoodCategory::find($id);
         $food_categories = FoodCategory::all();
         $images = Image::all();
-        return view(
-            'guest.pages.show_category', compact('foods', 'food_selected', 'food_categories', 'images'));
+
+        $user = Auth::guard('admin')->user();
+        if ($user)
+        {
+            return view('user.pages.show_category', compact('user','foods', 'food_categories' , 'images', 'food_selected'));
+        }
+        else{
+            return view(
+                'guest.pages.show_category', compact('foods', 'food_selected', 'food_categories', 'images'));
+        }
+
     }
 
     public function search(Request $request)
@@ -68,10 +104,19 @@ class PageController extends Controller
             ->paginate(12);
         $foods->appends(['$key_search' => $key_search]);
 //        dd($foods);
-        if($foods->count()==0)
-            return view('guest.pages.not_found',compact('foods','food_categories', 'images') );
-        else
-            return view('guest.pages.show_category',compact('foods','food_categories', 'images'));
+        $user = Auth::guard('admin')->user();
+        if($user){
+            if($foods->count()==0)
+                return view('user.pages.not_found',compact('user','foods','food_categories', 'images') );
+            else
+                return view('user.pages.show_category',compact('user','foods','food_categories', 'images'));
+        }
+        else{
+            if($foods->count()==0)
+                return view('guest.pages.not_found',compact('foods','food_categories', 'images') );
+            else
+                return view('guest.pages.show_category',compact('foods','food_categories', 'images'));
+        }
     }
 
 }

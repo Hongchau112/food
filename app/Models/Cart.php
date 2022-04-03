@@ -22,21 +22,21 @@ class Cart extends Model
         }
     }
 
-    public function AddCart($food, $id, $food_id, $price)
+    public function AddCart($food, $id, $food_id, $price, $quantity)
     {
-        $new_food = ['price_id' => $id , 'id' => $food_id, 'quanty' => 0, 'price' => $price,'food' => $food];
+        $new_food = ['price_id' => $id , 'id' => $food_id, 'quanty' => 0, 'price' => $price,'food' => $food, 'foods_sold' => $quantity];
         if ($this->foods)
         {
             if(array_key_exists($id, $this->foods)){
                 $new_food = $this->foods[$id];
             }
         }
-        $new_food['quanty']++;
+        $new_food['quanty'] += $quantity;
         $new_food['price'] = $new_food['quanty']*$price;
 
         $this->foods[$id] = $new_food;
-        $this->total_price += $price;
-        $this->total_quanty++;
+        $this->total_price += $price*$quantity;
+        $this->total_quanty +=$quantity;
 
     }
 

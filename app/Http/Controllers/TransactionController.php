@@ -43,6 +43,8 @@ class TransactionController extends Controller
         $order->status=0;
 
         $order->save();
+
+        //cap nhat so luong san co
         $order_id=$order->id;
         $i=0;
 
@@ -54,6 +56,11 @@ class TransactionController extends Controller
                 'food_name' => $food['food']->name
             ]);
             $i++;
+            $food_item = Food::find($food['id']);
+            $old_number = $food_item->number;
+            $food_item->foods_sold = $food['foods_sold'];
+            $food_item->number = $old_number - ($food_item->foods_sold);
+            $food_item->save();
         }
         $order->orders()->attach($food_order);
         $request->session()->forget('cart');
