@@ -11,6 +11,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,6 +70,11 @@ Route::middleware(['admin'])->name('admin.')->group(function () {
     Route::patch('admin/foods/update/{id}', [FoodController::class, 'update'])->name('foods.update');
     Route::get('admin/foods/delete/{id}', [FoodController::class, 'delete'])->name('foods.delete');
 
+    ////Comments
+    Route::get('admin/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::post('admin/allow_comment', [CommentController::class, 'allow_comment'])->name('comments.allow_comment');
+    Route::post('admin/reply_comment', [CommentController::class, 'reply_comment'])->name('comments.reply_comment');
+
 });
 
 //user controller
@@ -82,6 +88,11 @@ Route::get('guest/detail/{id}', [PageController::class, 'detail'])->name('guest.
 Route::get('guest/search', [PageController::class, 'search'])->name('guest.search');
 Route::get('guest/show_category/{id}', [PageController::class, 'show_category'])->name('guest.show_category');
 
+//comment
+Route::post('guest/load_comment', [PageController::class, 'load_comment'])->name('guest.load_comment');
+Route::post('guest/send_comment', [PageController::class, 'send_comment'])->name('guest.send_comment');
+
+
 Route::get('guest/add_cart/{id}', [CartController::class, 'add_cart'])->name('guest.add_cart');
 Route::get('guest/show_cart', [CartController::class, 'show_cart'])->name('guest.show_cart');
 Route::get('guest/delete_cart/{id}', [CartController::class, 'delete_cart'])->name('guest.delete_cart');
@@ -90,6 +101,7 @@ Route::get('guest/order', [CartController::class,'order'])->name('guest.order');
 
 Route::get('admin/transaction', [TransactionController::class, 'index'])->name('admin.transactions.index');
 Route::post('guest/transaction/store', [TransactionController::class, 'store'])->name('guest.transaction.store');
+
 
 
 

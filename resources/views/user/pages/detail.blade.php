@@ -96,25 +96,28 @@
                                 <div class="d-flex flex-column comment-section">
                                     <form>
                                         @csrf
-                                    <div class="bg-white p-2">
-                                        <div class="d-flex flex-row user-info"><img class="rounded-circle" src="" width="40">
-                                            <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Marry Andrews</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
+                                        <div id="comment_show" class="bg-white p-2">
+
                                         </div>
-                                        <div class="mt-2">
-                                            <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                                        <div class="bg-white p-2">
+                                            <input type="hidden" id="comment_food_id" value="{{$food->id}}" class="comment_food_id">
+                                            <input type="hidden"  value="{{$user->name}}" class="comment-name">
+
                                         </div>
-                                    </div></form>
+                                    </form>
                                     <div class="bg-white">
                                         <div class="d-flex flex-row fs-12">
-                                            <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">{{$user->name}}</span><span class="date text-black-50"></span></div>
+                                            <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold ">{{$user->name}}</span><span class="date text-black-50"></span></div>
 {{--                                            <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>--}}
 {{--                                            <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>--}}
 {{--                                            <div class="like p-2 cursor"><i class="fa fa-share"></i><span class="ml-1">Share</span></div>--}}
                                         </div>
                                     </div>
                                     <div class="bg-light p-2">
-                                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
-                                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{asset('/images/avatar-cmt.jpg')}}" width="50"><textarea class="form-control ml-1 shadow-none textarea comment-content"></textarea></div>
+                                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none send-comment" type="button">Bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
+                                        <div id="notify"></div>
                                     </div>
                                 </div>
                             </div>
@@ -150,6 +153,51 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function(){
+
+            load_comment();
+
+            function load_comment(){
+                var food_id=$('#comment_food_id').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '/guest/load_comment',
+                    type: "POST",
+                    data: {_token:_token, food_id: food_id},
+                    success:function(data){
+                        $('#comment_show').html(data);
+                    }
+                });
+
+            }
+
+            $('.send-comment').click(function(){
+                var food_id=$('#comment_food_id').val();
+                var _token = $('input[name="_token"]').val();
+                var name = $('.comment-name').val();
+                var content = $('.comment-content').val();
+
+                $.ajax({
+                    url: '/guest/send_comment',
+                    type: "POST",
+                    data: {_token:_token, food_id: food_id, name: name, content: content},
+                    success:function(data){
+
+                        $('#notify').html('<p>Thêm bình luận thành công! Đang chờ duyệt nhá</p>');
+                        load_comment();
+                        $('#notify').fadeOut(5000);
+                        $('.comment-content').val('');
+
+
+                    }
+                });
+            });
+            load_comment();
+
+        })
+    </script>
+
     <!-- Thêm sản phẩm vào giỏ-->
     <script>
         $(document).ready(function(){
@@ -159,12 +207,13 @@
                 var price=$('#get_price').val();
                 var qty=$('#quantity').val();
                 var food_qty = $('#foods_qty').val();
-                console.log(price);
-                console.log(qty);
-                console.log(food_id);
+                // console.log(price);
+                // console.log(qty);
+                // console.log(food_id);
                 if(qty>food_qty)
                 {
                     alert("Số lượng món vượt quá số lượng sẵn có");
+                    window.location.reload(true);
                 }else {
                     $.ajax({
                         url: '/guest/add_cart/' + food_id,
@@ -216,20 +265,6 @@
                 }
             });
         });
-
-        $(document).ready(function(){
-            var food_id=$('#food_id').val();
-            var  _token = $('input[name="_token"]').val();
-
-        });
-        function load_comment(){
-            $.ajax({
-                url: "",
-                method: "POST",
-                data: {},
-            })
-        }
-
 
     </script>
 

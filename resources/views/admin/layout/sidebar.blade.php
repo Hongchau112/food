@@ -48,6 +48,13 @@
                                 <span class="nk-menu-text">Quản lý hóa đơn</span>
                             </a>
                         </li><!-- .nk-menu-item -->
+
+                        <li class="nk-menu-item">
+                            <a href="{{route('admin.comments.index')}}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
+                                <span class="nk-menu-text">Quản lý bình luận</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
                     </ul><!-- .nk-footer-menu -->
                 </div><!-- .nk-sidebar-footer -->
             </div><!-- .nk-sidebar-content -->

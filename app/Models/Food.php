@@ -14,4 +14,8 @@ class Food extends Model
         'description',
         'food_category_id'
     ];
+
+    public function comment(){
+        return $this->hasMany('App\Models\Comment');
+    }
 }
